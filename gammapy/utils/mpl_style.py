@@ -2,6 +2,7 @@
 """Define the Gammapy matplotlib plotting style."""
 from __future__ import absolute_import, division, print_function, unicode_literals
 from astropy.visualization import astropy_mpl_style
+from cycler import cycler
 
 __all__ = ['gammapy_mpl_style']
 
@@ -10,7 +11,7 @@ gammapy_mpl_style = astropy_mpl_style
 Gammapy matplotlib plotting style.
 """
 
-gammapy_mpl_style['axes.prop_cycle'] = [
+gammapy_mpl_style['axes.prop_cycle'] = cycler('color', [
     '#E24A33',  # orange
     '#348ABD',  # blue
     '#467821',  # green
@@ -18,7 +19,7 @@ gammapy_mpl_style['axes.prop_cycle'] = [
     '#7A68A6',  # purple
     '#CF4457',  # pink
     '#188487',  # turquoise
-]
+])
 gammapy_mpl_style['interactive'] = False
 gammapy_mpl_style['axes.labelcolor'] = '#565656'
 gammapy_mpl_style['image.cmap'] = 'afmhot'
