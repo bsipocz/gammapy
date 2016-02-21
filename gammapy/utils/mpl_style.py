@@ -10,7 +10,7 @@ gammapy_mpl_style = astropy_mpl_style
 Gammapy matplotlib plotting style.
 """
 
-gammapy_mpl_style['axes.color_cycle'] = [
+gammapy_mpl_style['axes.prop_cycle'] = [
     '#E24A33',  # orange
     '#348ABD',  # blue
     '#467821',  # green
