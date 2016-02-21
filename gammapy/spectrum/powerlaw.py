@@ -72,9 +72,24 @@ def _conversion_factor(g, e, e1, e2):
     # Here we force this, i.e. give "correct" input even if the
     # user gives a spectral index with an incorrect sign.
     g = np.abs(g)
-    term1 = e / (-g + 1)
-    term2 = (e2 / e) ** (-g + 1) - (e1 / e) ** (-g + 1)
-    return term1 * term2
+
+    # To avoid dividing by zero, use limit there
+    g_is_one = np.isclose(g, 1.0)
+
+    if np.any(g_is_one):
+        factors = np.ones(len(g))
+        for i in range(len(g)):
+            if g_is_one[i]:
+                factors[i] = e[i] * (np.log(e2[i] / e1[i]))
+            else:
+                term1 = e[i] / (-g[i] + 1)
+                term2 = (e2[i] / e[i]) ** (-g[i] + 1) - (e1[i] / e[i]) ** (-g[i] + 1)
+                factors[i] = term1 * term2
+        return factors
+    else:
+        term1 = e / (-g + 1)
+        term2 = (e2 / e) ** (-g + 1) - (e1 / e) ** (-g + 1)
+        return term1 * term2
 
 
 def power_law_flux(I=1, g=g_DEFAULT, e=1, e1=1, e2=E_INF):
