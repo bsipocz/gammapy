@@ -243,8 +243,8 @@ def _significance_simple(n_observed, mu_background):
 
 def _significance_lima(n_observed, mu_background, force_method=False):
     if np.any(n_observed) < 10 and not force_method:
-        warnings.warn("n_observed is too small for the Li & Ma formula, "
-                      "computing the significance via Poisson probability", RuntimeWarning)
+        # warnings.warn("n_observed is too small for the Li & Ma formula, "
+        #               "computing the significance via Poisson probability", RuntimeWarning)
         return _significance_direct(n_observed, mu_background)
     term_a = sign(n_observed - mu_background) * sqrt(2)
     term_b = sqrt(n_observed * log(n_observed / mu_background) - n_observed + mu_background)
