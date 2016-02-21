@@ -11,6 +11,7 @@ TODO: More detailed description here.
 from __future__ import absolute_import, division, print_function, unicode_literals
 import numpy as np
 from numpy import sign, log, sqrt
+import warnings
 
 __all__ = ['background', 'background_error',
            'excess', 'excess_error',
@@ -164,7 +165,7 @@ def excess_error(n_on, n_off, alpha):
 # It currently has the same name as the `gammapy/stats/significance.py`
 # and shadows in in `gammapy/stats/__init.py`
 # Maybe `significance_poisson`?
-def significance(n_observed, mu_background, method='lima'):
+def significance(n_observed, mu_background, method='lima', force_method=False):
     r"""Compute significance for an observed number of counts and known background.
 
     The simple significance estimate :math:`S_{simple}` is given by
@@ -190,7 +191,10 @@ def significance(n_observed, mu_background, method='lima'):
     mu_background : array_like
         Known background level
     method : str
-        Select method: 'lima' or 'simple'
+        Select method: 'lima' or 'simple' or 'direct'
+    force_method : bool
+        Force to use the selected method. If `False` method 'lima' switches to 'direct' for low
+        ``n_observed`` where the Li & Ma formula is not correct any more.
 
     Returns
     -------
@@ -223,7 +227,7 @@ def significance(n_observed, mu_background, method='lima'):
     if method == 'simple':
         return _significance_simple(n_observed, mu_background)
     elif method == 'lima':
-        return _significance_lima(n_observed, mu_background)
+        return _significance_lima(n_observed, mu_background, force_method)
     elif method == 'direct':
         return _significance_direct(n_observed, mu_background)
     else:
@@ -237,7 +241,11 @@ def _significance_simple(n_observed, mu_background):
     return excess / background_error
 
 
-def _significance_lima(n_observed, mu_background):
+def _significance_lima(n_observed, mu_background, force_method=False):
+    if np.any(n_observed) < 10 and not force_method:
+        warnings.warn("n_observed is too small for the Li & Ma formula, "
+                      "computing the significance via Poisson probability", RuntimeWarning)
+        return _significance_direct(n_observed, mu_background)
     term_a = sign(n_observed - mu_background) * sqrt(2)
     term_b = sqrt(n_observed * log(n_observed / mu_background) - n_observed + mu_background)
     return term_a * term_b
