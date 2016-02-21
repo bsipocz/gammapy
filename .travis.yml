@@ -48,30 +48,30 @@ matrix:
     include:
 
         # Try MacOS X
-        - os: osx
-          env: PYTHON_VERSION=2.7 SETUP_CMD='test'
+#        - os: osx
+#          env: PYTHON_VERSION=2.7 SETUP_CMD='test'
 
-        - os: osx
-          env: PYTHON_VERSION=3.5 SETUP_CMD='test'
-               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
+#        - os: osx
+#          env: PYTHON_VERSION=3.5 SETUP_CMD='test'
+#               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
 
         # Test the dev version of Sherpa, this may take a longer time
-        - os: linux
-          env: PYTHON_VERSION=2.7 SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA DEBUG=True
-               PIP_DEPENDENCIES='uncertainties reproject git+http://github.com/sherpa/sherpa.git#egg=sherpa'
+#        - os: linux
+#          env: PYTHON_VERSION=2.7 SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA DEBUG=True
+#               PIP_DEPENDENCIES='uncertainties reproject git+http://github.com/sherpa/sherpa.git#egg=sherpa'
 
         # Run tests
         # Coverage is measured on Python 2 (where Sherpa is available)
-        - os: linux
-          env: PYTHON_VERSION=2.7 SETUP_CMD='test -V --coverage'
+#        - os: linux
+#          env: PYTHON_VERSION=2.7 SETUP_CMD='test -V --coverage'
 
-        - os: linux
-          env: PYTHON_VERSION=3.4 SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
-        - os: linux
-          env: PYTHON_VERSION=3.5 SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
+#        - os: linux
+#          env: PYTHON_VERSION=3.4 SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
+#        - os: linux
+#          env: PYTHON_VERSION=3.5 SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
 
         # Build docs
         - os: linux
@@ -82,20 +82,20 @@ matrix:
                CONDA_DEPENDENCIES=$CONDA_DOCS_DEPENDENCIES_WO_SHERPA
 
         # Run tests without GAMMAPY_EXTRA available
-        - os: linux
-          env: FETCH_GAMMAPY_EXTRA=false PYTHON_VERSION=3.5 SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
+#        - os: linux
+#          env: FETCH_GAMMAPY_EXTRA=false PYTHON_VERSION=3.5 SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
         # Test with Astropy dev and LTS versions
 #        - os: linux
 #          env: PYTHON_VERSION=2.7 ASTROPY_VERSION=lts SETUP_CMD='test -V'
 #        - os: linux
 #          env: PYTHON_VERSION=3.5 ASTROPY_VERSION=lts SETUP_CMD='test -V'
 #               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
-        - os: linux
-          env: PYTHON_VERSION=2.7 ASTROPY_VERSION=dev SETUP_CMD='test -V'
-        - os: linux
-          env: PYTHON_VERSION=3.5 ASTROPY_VERSION=dev SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
+#        - os: linux
+#          env: PYTHON_VERSION=2.7 ASTROPY_VERSION=dev SETUP_CMD='test -V'
+#        - os: linux
+#          env: PYTHON_VERSION=3.5 ASTROPY_VERSION=dev SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
         - os: linux
           env: PYTHON_VERSION=2.7 ASTROPY_VERSION=dev SETUP_CMD='build_sphinx -w'
                CONDA_DEPENDENCIES=$CONDA_DOCS_DEPENDENCIES
@@ -104,23 +104,23 @@ matrix:
                CONDA_DEPENDENCIES=$CONDA_DOCS_DEPENDENCIES_WO_SHERPA
 
         # Test with with optional dependencies disabled
-        - os: linux
-          env: PYTHON_VERSION=2.7 SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES='Cython click'
-               PIP_DEPENDENCIES=''
-        - os: linux
-          env: PYTHON_VERSION=3.5 SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES='Cython click'
-               PIP_DEPENDENCIES=''
+#        - os: linux
+#          env: PYTHON_VERSION=2.7 SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES='Cython click'
+#               PIP_DEPENDENCIES=''
+#        - os: linux
+#          env: PYTHON_VERSION=3.5 SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES='Cython click'
+#               PIP_DEPENDENCIES=''
 
         # Test with other numpy versions. Not all of the packages are
         # available with these on conda, thus moving some of them to pip
         # install. Latest astropy stable (1.1) is also not available for
         # older numpies, but using lts version should be good enough for
         # these tests (so we can avoid building it from source).
-        - os: linux
-          env: PYTHON_VERSION=3.5 NUMPY_VERSION=dev SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
+#        - os: linux
+#          env: PYTHON_VERSION=3.5 NUMPY_VERSION=dev SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
 #        - os: linux
 #          env: PYTHON_VERSION=2.7 NUMPY_VERSION=1.9 SETUP_CMD='test -V'
 #               ASTROPY_VERSION=lts
@@ -135,10 +135,10 @@ matrix:
     # issue here
     # Please add a link to a GH issue that tracks the upstream issue.
     allow_failures:
-        # see https://github.com/gammapy/gammapy/issues/439
-        - os: linux
-          env: PYTHON_VERSION=3.5 NUMPY_VERSION=dev SETUP_CMD='test -V'
-               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
+#        # see https://github.com/gammapy/gammapy/issues/439
+#        - os: linux
+#          env: PYTHON_VERSION=3.5 NUMPY_VERSION=dev SETUP_CMD='test -V'
+#               CONDA_DEPENDENCIES=$CONDA_DEPENDENCIES_WO_SHERPA
 
 
 install:
